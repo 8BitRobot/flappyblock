@@ -1,8 +1,9 @@
-module vga_top(clk, rst, buttons, hsync, vsync, red, green, blue);
+module vga_top(clk, rst, buttons, hsync, vsync, red, green, blue, score);
     input clk, rst;
     input [1:0] buttons;
     output hsync, vsync;
     output [3:0] red, green, blue;
+	 output [7:0] score;
     
     wire [9:0] hc, vc;
     wire [9:0] x, y;
@@ -13,7 +14,7 @@ module vga_top(clk, rst, buttons, hsync, vsync, red, green, blue);
     wire [19:0] address;
     wire [7:0] dataIn;
 
-    graphics_controller graphics(clk, buttons, x, y, dataIn, address);
+    graphics_controller graphics(clk, buttons, x, y, dataIn, address, score);
     memory_controller pingpongRAM(clk, address, dataIn, hc, vc, dataOut);
     
     wire [2:0] input_red, input_green;
